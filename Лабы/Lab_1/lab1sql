@@ -1,0 +1,60 @@
+CREATE TABLE STS_T(
+    idCol number(3) PRIMARY KEY,
+     textCol varchar2(50)
+
+);
+
+INSERT INTO STS_T(idCol,textCol)
+    VALUES(1,'One');
+
+INSERT INTO STS_T(idCol,textCol)
+    VALUES(2,'Two');
+
+INSERT INTO STS_T(idCol,textCol)
+    VALUES(3,'Three');
+    
+UPDATE STS_T
+    SET textCol = 'Uno'
+    WHERE idCol = 1;
+    
+UPDATE STS_T
+    SET textCol = 'Dos'
+    WHERE idCol = 2;  
+    
+SELECT * FROM STS_T;
+
+SELECT * FROM STS_T
+    WHERE idCol = 1;
+    
+SELECT MAX(idCol), AVG(idCol) FROM STS_T;
+    
+ DELETE FROM STS_T
+    WHERE idCol = 1;   
+
+------------------------------------
+
+CREATE TABLE STS_T_child(
+    idCol number(3),
+    textCol varchar2(50),
+    foreign key(idCol) references STS_T(idCol)
+);
+    
+INSERT INTO STS_T_child  
+    values (1, 'Ichi');
+INSERT INTO STS_T_child 
+    values (2, 'Ni');    
+  
+  
+SELECT STS_T.idCol, STS_T.textCol, STS_T_child.textCol FROM STS_T
+    INNER JOIN STS_T_child
+    ON STS_T.idCol = STS_T_child.idCol;
+    
+SELECT STS_T.idCol, STS_T.textCol, STS_T_child.textCol FROM STS_T
+    LEFT OUTER JOIN STS_T_child
+    ON STS_T.idCol = STS_T_child.idCol;
+    
+DROP TABLE STS_T;
+DROP TABLE STS_T_child;  
+  
+  
+    
